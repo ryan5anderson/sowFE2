@@ -12,7 +12,7 @@ const Public = () => {
                 <p>Owner: Ryan Anderson</p>
             </main>
             <footer>
-                <Link to="/login">Employee Login</Link>
+                <Link to="/login" className="home-login-button">Employee Login</Link>
             </footer>
         </section>
 

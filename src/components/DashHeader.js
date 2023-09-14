@@ -13,6 +13,8 @@ import { useSendLogoutMutation } from '../features/auth/authApiSlice'
 
 import useAuth from '../hooks/useAuth'
 
+import Sidebar from './Sidebar'
+
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
@@ -116,9 +118,7 @@ const DashHeader = () => {
     } else {
         buttonContent = (
             <>
-                {newNoteButton}
                 {newUserButton}
-                {notesButton}
                 {userButton}
                 {logoutButton}
             </>
@@ -131,9 +131,13 @@ const DashHeader = () => {
 
             <header className="dash-header">
                 <div className={`dash-header__container ${dashClass}`}>
-                    <Link to="/dash">
-                        <h1 className="dash-header__title">techNotes</h1>
-                    </Link>
+                <div className="sidebar-container">
+                <Sidebar />
+                </div>
+                <Link to="/dash">
+                    <img src="/logo.png" alt="Dashboard" className="dash-header__logo" />
+                </Link>
+
                     <nav className="dash-header__nav">
                         {buttonContent}
                     </nav>

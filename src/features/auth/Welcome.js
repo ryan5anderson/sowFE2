@@ -1,9 +1,19 @@
 import { Link } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import useTitle from '../../hooks/useTitle'
+import { useState } from 'react'
 
 const Welcome = () => {
 
     const { username, isManager, isAdmin } = useAuth()
+
+    const [showMenu, setShowMenu] = useState(false)
+
+    const toggleMenu = () => {
+        setShowMenu(!showMenu)
+      }
+
+    useTitle(`SOWs: ${username}`)
 
     const date = new Date()
     const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date)
@@ -15,13 +25,27 @@ const Welcome = () => {
 
             <h1>Welcome {username}!</h1>
 
-            <p><Link to="/dash/notes">View techNotes</Link></p>
+            <div>
+                <p><Link to="/dash/sows/view-sows">View Statment of Work</Link></p>
+            </div>
 
-            <p><Link to="/dash/notes/new">Add New techNote</Link></p>
+            {/*<button className="old-stuff" onClick={toggleMenu}>old stuff</button>*/}
+            
+            {showMenu && (
+                
+                <div className="dropdown-menu">
 
-            {(isManager || isAdmin) && <p><Link to="/dash/users">View User Settings</Link></p>}
+                    <p><Link to="/dash/notes">View Notes</Link></p>
 
-            {(isManager || isAdmin) && <p><Link to="/dash/users/new">Add New User</Link></p>}
+                    <p><Link to="/dash/notes/new">Add New Note</Link></p>
+
+                    {(isManager || isAdmin) && <p><Link to="/dash/users">View User Settings</Link></p>}
+
+                    {(isManager || isAdmin) && <p><Link to="/dash/users/new">Add New User</Link></p>}
+
+                    <p><Link to="/dash/notes/view">Look at your Notes :X</Link></p>
+                </div>
+            )}
 
         </section>
     )

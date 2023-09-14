@@ -1,13 +1,15 @@
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
-
 import usePersist from '../../hooks/usePersist'
+import useTitle from '../../hooks/useTitle'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 const Login = () => {
+    useTitle('Employee Login')
+
     const userRef = useRef()
     const errRef = useRef()
     const [username, setUsername] = useState('')
@@ -57,7 +59,7 @@ const Login = () => {
 
     const errClass = errMsg ? "errmsg" : "offscreen"
 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <PulseLoader color={"#FFF"} />
 
     const content = (
         <section className="public">
@@ -67,10 +69,10 @@ const Login = () => {
             <main className="login">
                 <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
 
-                <form className="form" onSubmit={handleSubmit}>
+                <form className="login-form" onSubmit={handleSubmit}>
                     <label htmlFor="username">Username:</label>
                     <input
-                        className="form__input"
+                        className="form__input_login"
                         type="text"
                         id="username"
                         ref={userRef}
@@ -82,14 +84,14 @@ const Login = () => {
 
                     <label htmlFor="password">Password:</label>
                     <input
-                        className="form__input"
+                        className="form__input_login"
                         type="password"
                         id="password"
                         onChange={handlePwdInput}
                         value={password}
                         required
                     />
-                    <button className="form__submit-button">Sign In</button>
+                    <button className="employee-login-button">Sign In</button>
 
 
                     <label htmlFor="persist" className="form__persist">

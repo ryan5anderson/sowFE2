@@ -14,8 +14,18 @@ import Prefetch from './features/auth/Prefetch'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
+import useTitle from './hooks/useTitle'
+import ViewNote from './features/notes/ViewNote'
+import NewLiftnShift from './features/sows/liftnshift';
+import NewArchitectasaService from './features/sows/arcservice';
+import ViewSoWs from './features/sows/ViewSoWs';
+import EditSoW from './features/sows/EditSoW';
+/*import CPQCalcForm from './features/cpq/cpqCalcForm'; */
+
 
 function App() {
+  useTitle('My SOW')
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -43,6 +53,17 @@ function App() {
                   <Route index element={<NotesList />} />
                   <Route path=":id" element={<EditNote />} />
                   <Route path="new" element={<NewNote />} />
+                  <Route path="view" element={<ViewNote />} />
+
+                </Route>
+
+                <Route path="sows">
+                  <Route index element={<NotesList />} />
+                  <Route path="lift-n-shift" element={<NewLiftnShift />} />
+                  <Route path="arc-as-service" element={<NewArchitectasaService />} />
+                  <Route path="view-sows" element={<ViewSoWs />} />
+                  <Route path=":id" element={<EditSoW />} />
+                  {/*<Route path="cpq" element={<CPQCalcForm />} /> */}
                 </Route>
 
               </Route>{/* End Dash */}

@@ -1,21 +1,21 @@
 import { useParams } from 'react-router-dom'
-import EditNoteForm from './EditNoteForm'
-import { useGetNotesQuery } from './notesApiSlice'
 import { useGetUsersQuery } from '../users/usersApiSlice'
+import { useGetSoWsQuery } from './sowsApiSlice'
 import useAuth from '../../hooks/useAuth'
 import PulseLoader from 'react-spinners/PulseLoader'
 import useTitle from '../../hooks/useTitle'
+import EditSoWForm from './EditSoWForm'
 
-const EditNote = () => {
-    useTitle('SOW: Edit Note')
+const EditSoW = () => {
+    useTitle('SOW: Edit')
 
-    const { id } = useParams()
+    const { id } = useParams() 
 
     const { username, isManager, isAdmin } = useAuth()
 
-    const { note } = useGetNotesQuery("notesList", {
+    const { sow } = useGetSoWsQuery("sowsList", {
         selectFromResult: ({ data }) => ({
-            note: data?.entities[id]
+            sow: data?.entities[id]
         }),
     })
 
@@ -25,17 +25,17 @@ const EditNote = () => {
         }),
     })
 
-    if (!note || !users?.length) return <PulseLoader color={"#FFF"} />
-
+    if (!sow || !users?.length) return <PulseLoader color={"#FFF"} />
 
     if (!isManager && !isAdmin) {
-        if (note.username !== username) {
+        if (sow.username !== username) {
             return <p className="errmsg">No access</p>
         }
     }
 
-    const content = <EditNoteForm note={note} users={users} />
+    const content = <EditSoWForm sow={sow} users={users} />
 
     return content
+
 }
-export default EditNote
+export default EditSoW

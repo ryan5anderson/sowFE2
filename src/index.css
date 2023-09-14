@@ -1,5 +1,143 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
+/* || SOW CARDS ]] */
+
+.sow-card {
+  background-color: #ffffff; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid #e0e0e0;
+  color: #333333;
+}
+
+.sow-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increased shadow size */
+}
+
+.sow-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+}
+
+.sow-card-header{
+  font-size: 1.5em;   
+}
+
+.sow-card-footer{
+  font-size: .9em;
+  padding-top: 10px;
+}
+
+
+
+/* || SIDEBARR */
+
+
+
+
+
+.toggle-button {
+  padding-bottom: 40px;
+  border: none;
+  background-color: transparent;
+  height: var(--button-size);
+  width: var(--button-size);
+}
+
+.toggle-button:hover {
+  transform: scale(1.2);
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100%;
+  position: fixed;
+  background-color: var(--secondary-bg-color);
+  transition: transform var(--transition-speed) ease-in-out;
+  transform: translateX(-100%);
+  margin-top: 10px;
+}
+
+
+
+.sidebar.open {
+  transform: translateX(0);
+  
+}
+
+.sidebar-container{
+  padding-top: 20px;
+}
+
+.sidebar-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+
+.card-item {
+  list-style-type: none;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition-speed);
+}
+
+.card-item:hover {
+  background-color: var(--primary-bg-color);
+}
+
+.card-link {
+  text-decoration: none;
+  color: var(--primary-text-color);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color var(--transition-speed);
+}
+
+.card-icon {
+  color: var(--secondary-text-color);
+  transition: color var(--transition-speed);
+}
+
+.card-link:hover {
+  color: var(--LINK-HOVER);
+}
+
+.card-link:hover .card-icon {
+  color: var(----LINK-HOVER);
+}
+
+
+
+
+
+
+/* || HEADER LOGO */
+
+.dash-header__logo {
+  width: 250px;  
+  position: fixed;
+  top: 3%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* || "old stuff" button */
+
+.old-stuff {
+  max-width: 100px;  
+}
+
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -10,19 +148,34 @@
 
 :root {
   /* COLORS */
-  --BGCOLOR: #CCCCCC;
-  --BORDER-COLOR: #FFA500;
-  --COLOR: #000000;
+  --BGCOLOR: white;
+  --BORDER-COLOR: #f6814b;
+  --COLOR: black;
   --ERROR: firebrick;
   --INACTIVE: lightgray;
-  --LINK-COLOR: #000;
-  --LINK-HOVER: #FF8C00;
-  --NOTE-BGCOLOR: hsla(240, 64%, 27%, 0.65);
+  --LINK-COLOR: #ff8d5c;
+  --LINK-HOVER: #ff5100;
+  --NOTE-BGCOLOR:#9FC1E9;
   --STATUS-COMPLETE: limegreen;
   --STATUS-OPEN: firebrick;
   --TABLE-BGCOLOR: #FFF;
   --TABLE-COLOR: #000;
   --INPUT-INVALID: #F00;
+}
+
+
+:root {
+  --primary-bg-color: #f5f5f5;
+  --secondary-bg-color: #f1f1f1;
+  --border-color: gray;
+  --primary-text-color: black;
+  --secondary-text-color: gray;
+  --hover-text-color: #333; 
+  --button-size: 10px;
+  --sidebar-width: 250px;
+  --transition-speed: 0.3s;
+  --shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  --Grey: #d3d3d3;
 }
 
 /* || UTILITY CLASSES */
@@ -52,7 +205,11 @@
   color: var(--COLOR);
   display: grid;
   place-content: center;
+
 }
+
+
+
 
 .icon-button:hover,
 .icon-button:focus-visible {
@@ -73,7 +230,6 @@ body {
   background-size: cover;
   background-position: top right;
   background-blend-mode: multiply;
-  
 }
 
 input,
@@ -88,7 +244,6 @@ select {
   min-height: 100vh;
   display: flex;
   flex-flow: column nowrap;
-  
 }
 
 a {
@@ -96,32 +251,33 @@ a {
 }
 
 a:any-link {
-  background: linear-gradient(109.6deg, rgb(33, 25, 180) 11.2%, rgb(253, 29, 29) 55.2%, rgb(252, 176, 69) 91.1%);
   color: var(--LINK-COLOR);
-  border: none;
-  border-radius: 6px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s ease;
 }
 
 a:hover,
 a:focus-visible {
   color: var(--LINK-HOVER);
-
-  border: 2px solid black;
 }
 
 /* || PAGES */
 
 .public,
 .welcome {
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.login-form{
+    background-color: #fff; /* White background */
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 20px; /* Add some padding to give it space */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 8px; /* Rounded corners */
+    text-align: left;
+    width: 50%; /* Set the width to one-third of the screen */
+    margin: auto;
 }
 
 .public {
@@ -130,11 +286,10 @@ a:focus-visible {
 }
 
 .public__main,
-
 .login {
   flex-grow: 1;
-  border-top: 2px solid var(--BORDER-COLOR);
-  border-bottom: 2px solid var(--BORDER-COLOR);
+  border-top: 5px solid var(--BORDER-COLOR);
+  border-bottom: 5px solid var(--BORDER-COLOR);
   padding: 1em 0;
 }
 
@@ -142,9 +297,7 @@ a:focus-visible {
   margin-top: 1em;
 }
 
-.welcome a::before {
-  content: "➜ "
-}
+
 
 /* || DASH HEADER, CONTAINER & FOOTER */
 
@@ -154,7 +307,7 @@ a:focus-visible {
   z-index: 1;
   background-color: var(--BGCOLOR);
   padding: 0 0.5em;
-  border-bottom: 10px solid var(--BORDER-COLOR);
+  border-bottom: 7px solid var(--BORDER-COLOR);
 }
 
 .dash-header__container {
@@ -164,9 +317,7 @@ a:focus-visible {
   align-items: center;
 }
 
-.dash-header__container--small {
-  max-width: 800px;
-}
+
 
 .dash-header__nav {
   display: flex;
@@ -181,14 +332,13 @@ a:focus-visible {
 }
 
 .dash-footer {
-  
   font-size: 1rem;
   position: sticky;
   bottom: 0;
   z-index: 1;
   background-color: var(--BGCOLOR);
   padding: 0.5em;
-  border-top: 10px solid var(--BORDER-COLOR);
+  border-top: 8px solid var(--BORDER-COLOR);
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
@@ -214,8 +364,8 @@ tr {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  color: var(--TABLE-COLOR);
   gap: 0.1em;
+  color: var(--TABLE-COLOR);
 }
 
 .table__button {
@@ -270,11 +420,14 @@ tr {
 
 /* || FORM - GENERAL */
 
+
+
 .form {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 0.75em;
-  max-width: 800px;
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  max-width: 677px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .form__checkbox-container {
@@ -295,12 +448,17 @@ tr {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+  border-bottom: var(--BORDER-COLOR) 3px solid;
+  
 }
 
-.form__input,
 .form__submit-button {
-  padding: 0.5em;
-  border-radius: 15px;
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
 }
 
 .form__input--text {
@@ -308,40 +466,132 @@ tr {
 }
 
 .form__input--incomplete {
-  border: 1px solid var(--INPUT-INVALID);
-  outline: 1px solid var(--INPUT-INVALID);
+  background-color: var(--Grey);
+  
 }
 
-.form__checkbox {
-  width: 24px;
-  height: 24px;
+.form__input:focus,
+.form__select:focus {
+    outline: none;
+
 }
+
+.form__input[type="range"] {
+    cursor: pointer;
+}
+
 
 .form__select {
-  width: fit-content;
-  padding: 0.25em;
+    background-color: var(--Grey);
+    cursor: pointer;
+
+}
+
+.form__select:hover {
+    background-color: #f5f5f5;
+}
+
+.form__input,
+.form__select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.form__input_login {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
 }
 
 .form__action-buttons {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.5em;
-  position: absolute;
-  right: 0.5em;
+     display: flex;
+    gap: 10px;
+}
+
+.form__row--space-between {
+  justify-content: space-between; /* Spread elements evenly within the container */
 }
 
 .form__row {
   display: flex;
-  flex-flow: row nowrap;
-  gap: 2em;
+  align-items: center;
+  gap: 10px;
+  margin: 20px;
+  margin-bottom: 50px;
 }
+
+.form__input-container {
+  flex-grow: 1;
+  /* Add the following properties to make the input fill the container */
+  width: 10%; /* Set the width to 100% to fill the container */
+  max-width: none; /* Remove the maximum width constraint */
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  background: var(--Grey);
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: var(--BORDER-COLOR); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 50%; 
+}
+
+
+
 
 .form__divider {
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5em;
 }
+
+.form__label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-weight: bold; 
+}
+
+
+.form__input-container-vm--lz{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center; /* Center elements horizontally */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* whats this? */
 
 @media screen and (max-width: 400px) {
   h1 {
@@ -352,9 +602,6 @@ tr {
     gap: 0;
   }
 
-  .icon-button {
-    font-size: 1.5rem;
-  }
 }
 
 
@@ -389,5 +636,238 @@ tr {
   .form__action-buttons {
     position: static;
   }
+
+  .form-container {
+    display: flex;
+    
+  }
+  .form {
+    background-color: #fff; /* White background */
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 20px; /* Add some padding to give it space */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 8px; /* Rounded corners */
+    height: 85vh;
+  }
+
+  
+  /* Adjust other form styles as needed */
+  
+
+  /* Add this CSS to your existing stylesheet */
+
+
+  .form-values-display {
+  font-family: Arial, sans-serif;
 }
 
+.section_1{
+  margin-bottom: 30px;
+  border-bottom: var(--BORDER-COLOR) 3px solid;
+}
+
+
+.section__2{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  border-bottom: var(--BORDER-COLOR) 3px solid;
+}
+
+.section__3{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  border-bottom: var(--BORDER-COLOR) 3px solid;
+  padding-bottom: 20px;
+}
+
+.section__4{
+  
+}
+
+
+.value-section {
+  display: flex;
+  flex-direction: column; /* Display the values in a column */
+  justify-content: space-between;
+  align-items: flex-start; /* Align the values to the start of the column */
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: "Courier New", monospace;
+}
+
+.value-section p:first-child {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.section-1-cpq {
+  display: flex;
+  justify-content: space-between; /* Distribute space between the two sections */
+}
+
+.section-1a-cpq,
+.section-1e-cpq {
+  flex: 1; 
+  display: flex;
+  padding: 5px;
+
+}
+
+
+
+.number-picker {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.number-picker__button_minus {
+  background-color: red;;
+  color: white;
+  border: none;
+  border-radius: 100px; /* Increase the border-radius for a rounder button */
+  font-size: 1rem; /* Increase the font size for bigger text */
+  padding: 6px 20px; /* Increase padding for a larger clickable area */
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.number-picker__button_plus {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 100px; /* Increase the border-radius for a rounder button */
+  font-size: 1rem; /* Increase the font size for bigger text */
+  padding: 6px 20px; /* Increase padding for a larger clickable area */
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.number-picker__button:hover {
+  background-color: var(--BORDER-COLOR);;
+  opacity: 1;
+}
+
+
+.small-input {
+  width: 50px; /* Adjust the width as needed */
+  height: 100%; /* Adjust the height as needed */
+  font-size: 20px; /* Adjust the font size as needed */
+  border: none;
+}
+
+.full-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.exit-fullscreen {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 48px;
+  height: 48px;
+  font-size: 2.5rem;
+  background-color: transparent;
+  border: none;
+  color: var(--COLOR);
+  display: grid;
+  place-content: center;
+}
+
+.totalPrice{
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid var(--BORDER-COLOR);
+  border-radius: 10px; 
+  padding: 10px;
+}
+
+
+/* || Lift and shift form */
+
+.newSoW-title-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-bottom: var(--BORDER-COLOR) 3px solid;
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid var(--BORDER-COLOR);
+  border-radius: 10px; 
+  padding: 10px;
+}
+
+
+.form__action-buttons-save{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.popup-buttons{
+  display: flex;
+  justify-content: center;
+}
+
+.icon-button:hover .fa-check {
+  color: green;
+}
+
+.icon-button:hover .fa-times {
+  color: red;
+}
+
+/* Public Page login button*/
+
+.home-login-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid var(--BORDER-COLOR); /* Orange outline */
+  border-radius: 5px; /* Rounded edges */
+  background-color: #fff; /* White background */
+  color: #FFA500; /* Orange text */
+  text-decoration: none;
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.home-login-button:hover {
+  background-color: var(--LINK-HOVER); /* Orange background on hover */
+  color: #fff; /* White text on hover */
+}
+
+.employee-login-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid var(--BORDER-COLOR); /* Orange outline */
+  border-radius: 5px; /* Rounded edges */
+  background-color: #fff; /* White background */
+  color: #FFA500; /* Orange text */
+  text-decoration: none;
+  transition: background-color 0.3s; /* Transition for hover effect */
+  width: 100%;
+}
+
+.employee-login-button:hover {
+  background-color: var(--LINK-HOVER); /* Orange background on hover */
+  color: #fff; /* White text on hover */
+}
+
+}
