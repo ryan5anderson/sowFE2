@@ -36,6 +36,10 @@ const EditSoWform = ({ sow, users }) => {
     const [months, setMonths] = useState(sow.months)
     const [userId, setUserId] = useState(sow.user)
     const [type, setType] = useState(sow.type)
+    const [engineer_hourly, setEngineerRate] = useState(sow.engineer_hourly);
+    const [architect_hourly, setArchitectRate] = useState(sow.architect_hourly);
+    const [pm_hourly, setPmRate] = useState(sow.pm_hourly);
+    const [showId, setShowId] = useState(true);
 
     const canSave = [name, userId].every(Boolean) && !isLoading
 
@@ -123,7 +127,9 @@ const EditSoWform = ({ sow, users }) => {
         }
     }
 
-
+    const toggleShowId = () => {
+      setShowId(!showId);
+    }
     
     let deleteButton = null
     if (isManager || isAdmin) {
@@ -143,8 +149,17 @@ const EditSoWform = ({ sow, users }) => {
     
 
     <form className="form" onSubmit={e => e.preventDefault()}>
-        <div className="form__title-row">
-            <h2>Edit SoW #{sow.id}</h2>
+        <div className="newSoW-title-row">
+            <h2 onClick={toggleShowId}>
+            {showId ? (
+              <>Edit SoW <span style={{ fontWeight: 'bold', color: 'blue' }}>#{sow.id}</span></>
+            ) : (
+              <>
+                Edit SoW <span style={{ fontWeight: 'bold', color: 'blue' }}>#ID</span>
+              </>
+            )}
+            </h2>
+
             <div className="form__action-buttons">
                 <button
                     className="icon-button"
@@ -168,57 +183,226 @@ const EditSoWform = ({ sow, users }) => {
 
         {sow.type === 'Lift and shift' && (
             <>
-                <label className="form__label" htmlFor="sow-vms">
-                    Virtual Machines:</label>
-                <input
-                    className="form__input"
-                    id="sow-vms"
-                    name="vms"
-                    type="text"
-                    autoComplete="off"
-                    value={vms}
-                    onChange={onVmsChanged}
-                />
+                 <div className="section__2">
 
-                <label className="form__label" htmlFor="sow-landing-zones">
-                    Landing Zones:</label>
-                <input
-                    className="form__input"
-                    id="sow-landing-zones"
-                    name="landing_zones"
-                    type="text"
-                    autoComplete="off"
-                    value={landing_zones}
-                    onChange={onLandingZonesChanged}
-                />
+          <div className="form__input-container-vm--lz">
+            <label className="form__label">
+              Virtual Machines:
+            </label>  
+            <div className="number-picker">
+              <button
+                className="number-picker__button_minus"
+                onClick={() => setVms(Math.max(0, parseInt(vms, 10) - 1))}
+              >
+                -
+              </button>
+              <input
+                className={`form__input ${!vms ? "form__input--incomplete" : ""} small-input`}
+                id="vms"
+                name="vms"
+                min="0"
+                value={vms}
+                onChange={(e) => setVms(e.target.value)}
+              />
+              <button
+                className="number-picker__button_plus"
+                onClick={() => setVms(parseInt(vms, 10) + 1)}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+
+          <div className="form__input-container-vm--lz">
+            <label className="form__label">
+              Landing Zones:
+            </label>
+
+            <div className="number-picker">
+              <button
+                className="number-picker__button_minus"
+                onClick={() => setLandingZones(Math.max(0, parseInt(landing_zones, 10) - 1))}
+              >
+                -
+              </button>
+              <input
+                className={`form__input ${!landing_zones ? "form__input--incomplete" : ""} small-input`}
+                id="landingZones"
+                name="landingZones"
+                min="0"
+                value={landing_zones}
+                onChange={(e) => setLandingZones(e.target.value)}
+              />
+              <button
+                className="number-picker__button_plus"
+                onClick={() => setLandingZones(parseInt(landing_zones, 10) + 1)}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+      </div>
+
+
+{/* section 3 */}
+
+<h3 style={{  marginBottom: '20px' }}>
+  Hourly Rate:</h3>
+    <div className="section__3">
+      
+      <div className="form__input-container">
+        <label className="form__label" htmlFor="engineerRate">
+          Engineer:
+        </label>
+        <input
+          className="form__input"
+          type="text"
+          value={engineer_hourly}
+          onChange={(e) => setEngineerRate(e.target.value)}
+        />
+        <div class="slidecontainer">
+          <input
+            class="slider"
+            id="engineer_hourly"
+            name="engineer_hourly"
+            type="range"
+            min="230"
+            max="300"
+            value={engineer_hourly}
+            onChange={(e) => setEngineerRate(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="form__input-container">
+        <label className="form__label" htmlFor="architectRate">
+          Architect:
+        </label>
+        <input
+          className="form__input"
+          type="text"
+          value={architect_hourly}
+          onChange={(e) => setArchitectRate(e.target.value)}
+        />
+        <div class="slidecontainer">
+          <input
+            class="slider"
+            id="architect_hourly"
+            name="architect_hourly"
+            type="range"
+            min="300"
+            max="400"
+            value={architect_hourly}
+            onChange={(e) => setArchitectRate(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="form__input-container">
+        <label className="form__label" htmlFor="pmRate">
+          Project Manager:
+        </label>
+        <input
+          className="form__input"
+          type="text"
+          value={pm_hourly}
+          onChange={(e) => setPmRate(e.target.value)}
+        />
+        <div class="slidecontainer">
+          <input
+            class="slider"
+            id="pm_hourly"
+            name="pm_hourly"
+            type="range"
+            min="200"
+            max="250"
+            value={pm_hourly}
+            onChange={(e) => setPmRate(e.target.value)}
+          />
+        </div>
+      </div>
+
+    </div>
+
             </>
         )}
 
         {sow.type === 'Arc as a Service' && (
             <>
-                <label className="form__label" htmlFor="sow-hours">
-                    Hours:</label>
-                <input
-                    className="form__input"
-                    id="sow-hours"
-                    name="hours"
-                    type="text"
-                    autoComplete="off"
-                    value={hours}
-                    onChange={onHoursChanged}
-                />
+                <div className="section__2">
+        
+        <label className="form__label" htmlFor="hours">
+          Hours:
+        </label>
+        <select
+          className={`form__input ${!(hours === 10 || hours === 20) ? "form__input--incomplete" : ""}`}
+          id="hours"
+          name="hours"
+          value={hours}
+          onChange={(e) => setHours(Number(e.target.value))}
+        >
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+        </select>
 
-                <label className="form__label" htmlFor="sow-months">
-                    Months:</label>
-                <input
-                    className="form__input"
-                    id="sow-months"
-                    name="months"
-                    type="text"
-                    autoComplete="off"
-                    value={months}
-                    onChange={onMonthsChanged}
-                />
+</div>
+
+      <div className="section__3">
+
+        <div className="form__input-container">
+          <label className="form__label" htmlFor="months">
+            Months:
+          </label>
+            <input
+              className="form__input"
+              type="text"
+              value={months}
+              onChange={(e) => setMonths(e.target.value)}
+            />
+            <div class="slidecontainer">
+              <input
+                className="slider"
+                id="months"
+                name="months"
+                type="range"
+                min="6"
+                max="24"
+                step="1"
+                value={months}
+                onChange={(e) => setMonths(e.target.value)}
+              />
+            </div>
+          </div>
+        
+
+
+        <div className="form__input-container">
+          <label className="form__label" htmlFor="architectRate">
+            Architect Hourly Rate:
+          </label>
+          <input
+            className="form__input"
+            type="text"
+            value={architect_hourly}
+            onChange={(e) => setArchitectRate(e.target.value)}
+          />
+          <div class="slidecontainer">
+            <input
+              className="slider"
+              id="architect_hourly"
+              name="architect_hourly"
+              type="range"
+              min="300"
+              max="400"
+              value={architect_hourly}
+              onChange={(e) => setArchitectRate(e.target.value)}
+            />
+          </div>
+        </div>
+  
+      </div>
             </>
         )}
     </form>

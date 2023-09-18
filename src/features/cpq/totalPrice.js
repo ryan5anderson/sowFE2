@@ -92,9 +92,8 @@ const total_arc = (hours, months, ahr) => {
 const totalPrice = ({ values, type }) => (
     <>
       {type === "Arc as a Service" && (
-        <div className="value-section">
-          <p>Total</p>
-          <p>${total_arc(values.hours, values.months, values.architect_hourly).toLocaleString()}</p>
+        <div className="totalPrice">
+          <h2>Total Services Cost ${total_arc(values.hours, values.months, values.architect_hourly).toLocaleString()}</h2>
         </div>
       )}
   
