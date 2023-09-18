@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faCalculator, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faCalculator, faCheck, faTimes, faFileWord } from "@fortawesome/free-solid-svg-icons";
 import { useAddNewSoWMutation } from "./sowsApiSlice";
 import CPQCalcForm from "../cpq/cpqCalcForm";
 import TotalPrice from "../cpq/totalPrice";
+import PizZip from 'pizzip';
+import Docxtemplater from 'docxtemplater';
+import FileSaver from 'file-saver';
+import axios from 'axios';
 
 
 
@@ -153,6 +157,52 @@ const NewLiftnShiftForm = ({ users }) => {
     setDisplayValues(!displayValues);
     setIsFullPage(!isFullPage); // Toggle the state
   };
+
+  const onGenerateWordClicked = async () => {
+    let templateURL = '';
+    let docData = {};
+    let filename = '';
+
+    // Determine which template to use and set the appropriate data
+    if (type === 'Lift and shift') {
+        templateURL = process.env.PUBLIC_URL + '/LAStemplate.docx';
+        docData = {
+            NAME: name,
+            VMS: vms,
+            LANDINGZONES: landing_zones
+        };
+        filename = `${name}_Lift_and_Shift.docx`;
+    } else {
+        console.error('Unknown type:', type);
+        return;
+    }
+
+    try {
+        // Fetch the appropriate template
+        const response = await axios.get(templateURL, { responseType: 'arraybuffer' });
+
+        // Load the docx file from the response
+        const zip = new PizZip(response.data);
+        
+        // Create a docxtemplater instance
+        const doc = new Docxtemplater(zip);
+
+        // Set the templateVariables
+        doc.setData(docData);
+
+        // Apply the changes
+        doc.render();
+
+        // Get the document as binary data
+        const docBinary = doc.getZip().generate({ type: "blob" });
+
+        // Use FileSaver to save the file
+        FileSaver.saveAs(docBinary, filename);
+
+    } catch (error) {
+        console.error('Error loading .docx template: ', error);
+    }
+}
 
   
 
@@ -371,6 +421,15 @@ const NewLiftnShiftForm = ({ users }) => {
           onClick={handleSaveClick}
         >
           <FontAwesomeIcon icon={faSave} />
+        </button>
+
+        <button
+            className="icon-button"
+            title="Generate Word"
+            disabled={!canSave}
+            onClick={onGenerateWordClicked}
+        >
+            <FontAwesomeIcon icon={faFileWord} />
         </button>
 
         {showPopup && (
