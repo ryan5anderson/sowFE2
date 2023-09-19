@@ -35,6 +35,8 @@ const SOWCard = ({ sowId }) => {
                     <>
                         Hours: {sow.hours} <br /> 
                         Months: {sow.months} <br />
+                        Architect Hourly Rate: {sow.architect_hourly} <br />
+
                     </>
                     }
 

@@ -36,7 +36,7 @@ const NewArcasServiceForm = ({ users }) => {
         }
       }, [isSuccess, navigate]);
 
-      const canSave = [name, hours, months, userId].every(Boolean) && !isLoading;
+      const canSave = [name, hours, months, architect_hourly,  userId].every(Boolean) && !isLoading;
 
       const handleSaveClick = (e) => {
         e.preventDefault(); 
