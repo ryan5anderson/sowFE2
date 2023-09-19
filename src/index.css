@@ -529,7 +529,6 @@ tr {
 
 .form__input-container {
   flex-grow: 1;
-  /* Add the following properties to make the input fill the container */
   width: 10%; /* Set the width to 100% to fill the container */
   max-width: none; /* Remove the maximum width constraint */
 }
@@ -591,7 +590,7 @@ tr {
   margin-right: auto;
 }
 
-/* whats this? */
+
 
 @media screen and (max-width: 400px) {
   h1 {
@@ -651,10 +650,7 @@ tr {
   }
 
   
-  /* Adjust other form styles as needed */
-  
 
-  /* Add this CSS to your existing stylesheet */
 
 
   .form-values-display {

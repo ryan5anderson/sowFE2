@@ -82,10 +82,10 @@ export const {
     useAddNewSoWMutation,
     useUpdateSoWMutation,  
     useDeleteSoWMutation,
-    // ... export other mutations
+    
 } = sowsApiSlice;
 
-// Create selectors similar to your notes selectors
+// Create selectors similar to notes selectors
 export const selectSoWsResult = sowsApiSlice.endpoints.getSoWs.select();
 const selectSoWsData = createSelector(
     selectSoWsResult,
@@ -95,5 +95,5 @@ export const {
     selectAll: selectAllSoWs,
     selectById: selectSoWById,
     selectIds: selectSoWIds
-    // ... and so on
+    
 } = sowsAdapter.getSelectors(state => selectSoWsData(state) ?? initialState);

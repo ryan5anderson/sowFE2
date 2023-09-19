@@ -176,7 +176,7 @@ const EditSoWform = ({ sow, users }) => {
                 >
                     <FontAwesomeIcon icon={faSave} />
                 </button>
-                {/* Assuming you might have a delete button similar to Note */}
+                
                 {deleteButton}
             </div>
         </div>
